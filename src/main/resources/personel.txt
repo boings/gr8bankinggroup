@@ -1,0 +1,8 @@
+joshua,cong,manager
+john,this,customer
+mike,that,loan
+sam,other,credit
+customer,customer,customer
+manager,manager,manager
+loan,loan,loan
+credit,credit,credit
