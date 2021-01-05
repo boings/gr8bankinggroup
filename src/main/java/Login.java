@@ -1,10 +1,13 @@
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 import java.util.*;
 import java.io.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import layers.UI.*;
 import java.awt.Label;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -14,7 +17,6 @@ import javax.swing.JTextField;
 import java.awt.Button;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import layers.UI.*;
 
 public class Login extends JFrame {
 
@@ -47,8 +49,6 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		String a = new File(".").getAbsolutePath();
-		System.out.println(a);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		contentPane = new JPanel();
@@ -88,37 +88,39 @@ public class Login extends JFrame {
 			}
 		
 
-			private void verifyLogin(String text, String text2) {
+			private void verifyLogin(String UserID, String pwd) {
 				boolean swapped = false;
 			    try {
 					ClassLoader classLoader = getClass().getClassLoader();
-					File file = new File(classLoader.getSystemResource("personel.txt").getFile());
-			    	Scanner sc = new Scanner(file);//this is exact address of my test login info. i was having trouble with relative locations
+					File file = new File(classLoader.getResource("personel.txt").getFile());
+			    	Scanner sc = new Scanner(file);
+			    	//Scanner sc = new Scanner(new File("C://Users//joshu//Desktop//IDEs//source code//Java//Gr8Banking capstone//src//main//resources//personel.txt"));//this is exact address of my test login info. i was having trouble with relative locations
 
 			        while (sc.hasNextLine()) {
 			        	
 			        	StringTokenizer st = new StringTokenizer(sc.next(),",");  
 			            while (st.hasMoreTokens()) {  
-			            	String Username = st.nextToken();
+			            	String User = st.nextToken();
 			            	String Password = st.nextToken();
+			            	String name = st.nextToken();
 			            	String role = st.nextToken();
 			            	
 			                //System.out.println(Username);
 			                //System.out.println(Password);
 			                
-			                if (Username.equals(text) && Password.equals(text2))
+			                if (User.equals(UserID) && Password.equals(pwd))
 			                		{
 			                	
-			                	loadData();
+			                	
 			                	
 			                		swapped = true;
 			                			if(role.equals("manager"))
 			                			{
-			                				System.out.println("Swapping to Manager as " + Username);
+			                				System.out.println("Swapping to Manager as " + name);
 			                				
 			                				
 			                				try {
-			                					ManagerUI Mframe = new ManagerUI();
+			                					ManagerUI Mframe = new ManagerUI(name, Integer.parseInt(UserID));
 			                					
 			                					Mframe.setVisible(true);
 			                				} catch (Exception e) {
@@ -131,10 +133,10 @@ public class Login extends JFrame {
 			                			
 			                			if(role.equals("customer"))
 			                			{
-			                				System.out.println("Swapping to customer as " + Username);
+			                				System.out.println("Swapping to customer as " + name);
 			                				
 			                				try {
-			                					CustomerUI Cframe = new CustomerUI();
+			                					CustomerUI Cframe = new CustomerUI(name, Integer.parseInt(UserID));
 			                					hide();
 			                					Cframe.setVisible(true);
 			                					
@@ -148,11 +150,11 @@ public class Login extends JFrame {
 			                			
 			                			if(role.equals("loan"))
 			                			{
-			                				System.out.println("Swapping to loan as " + Username);
+			                				System.out.println("Swapping to loan as " + name);
 			                				
 			                				
 			                				try {
-			                					LoanUI Lframe = new LoanUI();
+			                					LoanUI Lframe = new LoanUI(name, Integer.parseInt(UserID));
 			                					hide();
 			                					Lframe.setVisible(true);
 			                				} catch (Exception e) {
@@ -165,10 +167,10 @@ public class Login extends JFrame {
 			                			
 			                			if(role.equals("credit"))
 			                			{
-			                				System.out.println("Swapping to credit as " + Username);
+			                				System.out.println("Swapping to credit as " + name);
 
 			                				try {
-			                					CreditUI CRframe = new CreditUI();
+			                					CreditUI CRframe = new CreditUI(name, Integer.parseInt(UserID));
 			                					hide();
 			                					CRframe.setVisible(true);
 			                				} catch (Exception e) {
@@ -199,11 +201,6 @@ public class Login extends JFrame {
 			    }    
 			}
 
-
-			private void loadData() {
-				// TODO Auto-generated method stub
-				
-			}
 		});
 		button.setFont(new Font("Dialog", Font.PLAIN, 20));
 		button.setBounds(397, 479, 131, 33);

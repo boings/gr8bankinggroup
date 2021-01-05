@@ -6,9 +6,6 @@
     <artifactId>Gr8tBankingGroup</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    
-
-    <name>Spring Boot Blank Project (from https://github.com/making/spring-boot-blank)</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -28,9 +25,8 @@
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.0.0.Alpha6</version>
-            <type>pom</type>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.5.6-Final</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
