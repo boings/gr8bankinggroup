@@ -68,7 +68,7 @@ CREATE TABLE `Credit_Card` (
   UNIQUE KEY `Credit_Card_UN` (`customer_id`,`issuer_id`),
   KEY `Credit_Card_FK_1` (`issuer_id`),
   CONSTRAINT `Credit_Card_FK` FOREIGN KEY (`customer_id`) REFERENCES `Customer` (`user_id`),
-  CONSTRAINT `Credit_Card_FK_1` FOREIGN KEY (`issuer_id`) REFERENCES `head_credit` (`user_id`)
+  CONSTRAINT `Credit_Card_FK_1` FOREIGN KEY (`issuer_id`) REFERENCES `User` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -128,7 +128,7 @@ CREATE TABLE `Loan` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `Loan_UN` (`issuer_id`,`customer_id`),
   KEY `Loan_FK_1` (`customer_id`),
-  CONSTRAINT `Loan_FK` FOREIGN KEY (`issuer_id`) REFERENCES `head_loan` (`user_id`),
+  CONSTRAINT `Loan_FK` FOREIGN KEY (`issuer_id`) REFERENCES `User` (`id`),
   CONSTRAINT `Loan_FK_1` FOREIGN KEY (`customer_id`) REFERENCES `Customer` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -194,75 +194,6 @@ LOCK TABLES `User` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `bank_manager`
---
-
-DROP TABLE IF EXISTS `bank_manager`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `bank_manager` (
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`user_id`),
-  CONSTRAINT `bank_manager_FK` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bank_manager`
---
-
-LOCK TABLES `bank_manager` WRITE;
-/*!40000 ALTER TABLE `bank_manager` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bank_manager` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `head_credit`
---
-
-DROP TABLE IF EXISTS `head_credit`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `head_credit` (
-  `user_id` int NOT NULL,
-  UNIQUE KEY `head_credit_UN` (`user_id`),
-  CONSTRAINT `head_credit_FK` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `head_credit`
---
-
-LOCK TABLES `head_credit` WRITE;
-/*!40000 ALTER TABLE `head_credit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `head_credit` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `head_loan`
---
-
-DROP TABLE IF EXISTS `head_loan`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `head_loan` (
-  `user_id` int NOT NULL,
-  UNIQUE KEY `head_loan_UN` (`user_id`),
-  CONSTRAINT `head_loan_FK` FOREIGN KEY (`user_id`) REFERENCES `User` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `head_loan`
---
-
-LOCK TABLES `head_loan` WRITE;
-/*!40000 ALTER TABLE `head_loan` DISABLE KEYS */;
-/*!40000 ALTER TABLE `head_loan` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping routines for database 'Gr8BankingGroup'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -275,4 +206,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-30 14:02:06
+-- Dump completed on 2021-01-06 10:56:50
