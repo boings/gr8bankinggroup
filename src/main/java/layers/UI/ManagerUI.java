@@ -1,17 +1,13 @@
 package layers.UI;
 
-import java.awt.BorderLayout;
 import java.lang.Thread;
-
-import java.awt.EventQueue;
-import java.awt.Font;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import layers.BO.*;
 
-import java.awt.Label;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -20,12 +16,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ManagerUI extends JFrame {
+	
+	public void setinputType(String in)
+	{
+		this.inputType = in;
+	}
 
 	 private JPanel contentPane;
 	 private JPanel timeInput;
-	 private Integer Timeoutput;	
-	 
-	 
+	 private JPanel IDInput;
+	 private JPanel STInput;
+	 private Integer Timeoutput = 1;	
+	 private Integer ID = 1;
+	 private Integer type = 1;
+	 private String inputType = "";
+	 private JTextField textField;
 	 
 
 	/**
@@ -40,17 +45,21 @@ public class ManagerUI extends JFrame {
 		final AccountBO ABO = new AccountBO();
 		
 		final JFrame thisFrame = this;	
-		final JDialog DTframe = new JDialog(thisFrame, "Time input", true);
+		final JDialog DTframe = new JDialog(thisFrame, "Input Box", true);
+		final JDialog IDframe = new JDialog(thisFrame, "Input Box", true);
+		final JDialog STframe = new JDialog(thisFrame, "Input Box", true);
 		
 		timeInput = new JPanel();
+		IDInput = new JPanel();
+		STInput = new JPanel();
 		timeInput.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentHidden(ComponentEvent e) {
 				System.out.println("closing box");
 			}
 		});
-		timeInput.setSize(1000, 1000);
 		
+		//Start Time input--------------------------------
 		final JRadioButton rdbtnNewRadioButton = new JRadioButton("per Week");
 	 	rdbtnNewRadioButton.setBounds(86, 96, 109, 23);
 		timeInput.add(rdbtnNewRadioButton);
@@ -101,8 +110,82 @@ public class ManagerUI extends JFrame {
 		btnNewButtont.setBounds(78, 178, 89, 23);
 		timeInput.add(btnNewButtont);
 		
-		
 		//end of time input--------------------
+		
+		//Start ID input--------------------------------
+		Label labelID = new Label("Input the "+ inputType +" ID");
+		labelID.setFont(new Font("Dialog", Font.BOLD, 22));
+		labelID.setAlignment(Label.CENTER);
+		labelID.setBounds(10, 10, 230, 49);
+		IDInput.add(labelID);
+		
+		this.setSize(250, 250); 
+		
+		JButton btnNewButtonID = new JButton("confirm");
+		btnNewButtonID.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				ID = Integer.parseInt(textField.getText());
+				IDframe.setVisible(false);
+			}
+		});
+		
+		btnNewButtonID.setBounds(78, 178, 89, 23);
+		IDInput.add(btnNewButtonID);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textField.setBounds(43, 93, 167, 49);
+		IDInput.add(textField);
+		textField.setColumns(10);
+		
+		//END ID input--------------------------------
+		
+		//Start Sort By input--------------------------------
+		
+		final JRadioButton TyperdbtnNewRadioButton = new JRadioButton("Profession");
+		TyperdbtnNewRadioButton.setBounds(86, 96, 109, 23);
+		STInput.add(TyperdbtnNewRadioButton);
+		
+		final JRadioButton TyperdbtnNewRadioButton_1 = new JRadioButton("Reigon");
+		TyperdbtnNewRadioButton_1.setBounds(86, 122, 109, 23);
+		STInput.add(TyperdbtnNewRadioButton_1);
+		
+		ButtonGroup Typegroup = new ButtonGroup();
+		Typegroup.add(TyperdbtnNewRadioButton);
+		Typegroup.add(TyperdbtnNewRadioButton_1);
+		
+		Label Typelabel2 = new Label("Sort By:");
+		Typelabel2.setFont(new Font("Dialog", Font.BOLD, 22));
+		Typelabel2.setAlignment(Label.CENTER);
+		Typelabel2.setBounds(10, 10, 230, 49);
+		STInput.add(Typelabel2);
+		
+		JButton TypebtnNewButtont = new JButton("confirm");
+		TypebtnNewButtont.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if (TyperdbtnNewRadioButton.isSelected()) { 
+					  
+					type = 1;
+                } 
+				
+				if (TyperdbtnNewRadioButton_1.isSelected()) { 
+					  
+					type = 2;
+                }  
+				
+				STframe.setVisible(false);
+			}
+			
+		});
+		TypebtnNewButtont.setBounds(78, 178, 89, 23);
+		STInput.add(TypebtnNewButtont);
+		
+		
+		//END Sort By input--------------------------------
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -155,8 +238,13 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Card status of Customers");
 				//function for status of customers
-				int customerID = 0;
-				CCBO.statusOfCards(customerID);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
+				
+				CCBO.statusOfCards(ID);
 			}
 		});
 		btnNewButton2.setBounds(44, 217, 143, 44);
@@ -169,8 +257,12 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: number of CC aproved");
 				//function for number of CC aproved
-				int customerID = 0;
-				CCBO.numberOfCCForCust(customerID);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
+				CCBO.numberOfCCForCust(ID);
 				
 			}
 		});
@@ -184,8 +276,11 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: number of CC rejected");
 				//function for number of CC rejected
-				int type = 0;
-				CCBO.numberOfCCRejected(type);
+				DTframe.getContentPane().add(timeInput);
+				DTframe.pack();
+				DTframe.setVisible(true);
+				System.out.println("result from box was: " + Timeoutput);
+				CCBO.numberOfCCRejected(Timeoutput);
 			}
 		});
 		btnNewButton4.setBounds(44, 327, 143, 44);
@@ -198,9 +293,11 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: View statments");
 				//function for statements of customers
-				int ID = 0;
-				int type = 0;
-				CCBO.viewStatement(type, ID);
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
+				CCBO.viewStatement(ID);
 				
 			}
 		});
@@ -215,7 +312,10 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: useage pattern of Customers");
 				//function for patterns of customers
-				int ID = 0;
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
 				CCBO.useagePatternForCustID(ID);
 				
 			}
@@ -231,7 +331,11 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Limits of Customers");
 				//function for limits of customers
-				int ID = 0;
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
 				CCBO.limitsForCust(ID);
 				
 			}
@@ -247,9 +351,12 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: History of Customers");
 				//function for history of customers
-				int type = 0;
-				int ID = 0;
-				CCBO.paymentHistory(ID, type);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
+				CCBO.paymentHistory(ID);
 				
 			}
 		});
@@ -279,7 +386,11 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Classification of Customers");
 				//function for class of customers
-				int ID = 0;
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
 				CBO.CustomerCCClasification(ID);
 				
 			}
@@ -295,9 +406,12 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Expiring?");
 				//function for expiring?
-				int time = 0;
-				int ID = 0;
-				CCBO.Expiring(ID, time);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
+				CCBO.Expiring(ID);
 				
 			}
 		});
@@ -312,7 +426,10 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Regional/profession use");
 				//function for regional use for customers
-				int type = 0;
+				STframe.getContentPane().add(STInput);
+				STframe.pack();
+				STframe.setVisible(true);
+				System.out.println("result from box was: " + type);
 				CCBO.RegionalUseage(type);
 				
 			}
@@ -329,7 +446,10 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Regional/profession sale of cards");
 				//function for sale of cards
-				int type = 0;
+				STframe.getContentPane().add(STInput);
+				STframe.pack();
+				STframe.setVisible(true);
+				System.out.println("result from box was: " + type);
 				CCBO.RegionalSale(type);
 				
 				
@@ -361,7 +481,11 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Discontinues");
 				//function for Discontinues
-				int ID = 0;
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
 				CCBO.DiscontinuedCards(ID);
 				
 			}
@@ -381,8 +505,11 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Loan Requests");
 				//function for loan requests
-				int time = 0;
-				LBO.newLoanRequests(time);
+				DTframe.getContentPane().add(timeInput);
+				DTframe.pack();
+				DTframe.setVisible(true);
+				System.out.println("result from box was: " + Timeoutput);
+				LBO.newLoanRequests(Timeoutput);
 				
 			}
 		});
@@ -396,9 +523,12 @@ public class ManagerUI extends JFrame {
 				
 				
 				System.out.println("Executing function: Loan Status");
-				int type = 0;
-				int ID = 0;
-				LBO.loanStatus(type, ID);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
+				LBO.loanStatus(ID);
 				
 			}
 		});
@@ -413,7 +543,10 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Loan By Profession");
 				//function for loan by profession
-				int type = 0;
+				STframe.getContentPane().add(STInput);
+				STframe.pack();
+				STframe.setVisible(true);
+				System.out.println("result from box was: " + type);
 				LBO.numberOfLoans(type);
 				
 			}
@@ -429,9 +562,12 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Loans Rejected");
 				//function for loan rejected
-				int type = 0;
-				int ID = 0;
-				LBO.loansRejected(type, ID);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
+				LBO.loansRejected(ID);
 				
 				
 			}
@@ -447,8 +583,11 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Avg time to decide");
 				//function for descition time
-				int time = 0;
-				LBO.avgDecideTime(time);
+				DTframe.getContentPane().add(timeInput);
+				DTframe.pack();
+				DTframe.setVisible(true);
+				System.out.println("result from box was: " + Timeoutput);
+				LBO.avgDecideTime(Timeoutput);
 				
 			}
 		});
@@ -463,8 +602,12 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: customer classification");
 				//function for customer classification
-				int ID = 0;
-				CBO.CustomerLoanClassification();
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + ID);
+				CBO.CustomerLoanClassification(ID);
 				
 			}
 		});
@@ -479,7 +622,10 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: loan summary by reigon/profession");
 				//function for loan summary by reigon
-				int type = 0;
+				STframe.getContentPane().add(STInput);
+				STframe.pack();
+				STframe.setVisible(true);
+				System.out.println("result from box was: " + type);
 				LBO.summary(type);
 				
 			}

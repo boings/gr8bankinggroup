@@ -6,6 +6,8 @@ import java.awt.Label;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import layers.BO.AccountBO;
@@ -16,7 +18,11 @@ import layers.BO.PurchaseBO;
 
 import javax.swing.JEditorPane;
 import java.awt.Font;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -25,8 +31,21 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 
 public class CustomerUI extends JFrame {
+	
+	public void setinputType(String in)
+	{
+		this.inputType = in;
+	}
 
 	private JPanel contentPane;
+	private JPanel timeInput;
+	private JPanel IDInput;
+	private JPanel STInput;
+	private Integer Timeoutput = 1;	
+	private Integer CID = 1;
+	private Integer type = 1;
+	private String inputType = "";
+	private JTextField textField;
 
 	/**
 	 * Create the frame.
@@ -35,12 +54,98 @@ public class CustomerUI extends JFrame {
 		
 		final Integer UID = userID;
 		final String usersName = name;
+		final JFrame thisFrame = this;	
+		final JDialog DTframe = new JDialog(thisFrame, "Input Box", true);
+		final JDialog IDframe = new JDialog(thisFrame, "Input Box", true);
+		final JDialog STframe = new JDialog(thisFrame, "Input Box", true);
 		
 		final CustomerBO CBO = new CustomerBO();
 		final LoanBO LBO = new LoanBO();
 		final CreditCardBO CCBO = new CreditCardBO();
 		final PurchaseBO PBO = new PurchaseBO();
 		final AccountBO ABO = new AccountBO();
+		
+		//Start ID input--------------------------------
+		Label labelID = new Label("Input the "+ inputType +" ID");
+		labelID.setFont(new Font("Dialog", Font.BOLD, 22));
+		labelID.setAlignment(Label.CENTER);
+		labelID.setBounds(10, 10, 230, 49);
+		IDInput.add(labelID);
+			
+		this.setSize(250, 250); 
+			
+		JButton btnNewButtonID = new JButton("confirm");
+		btnNewButtonID.addMouseListener(new MouseAdapter() {
+			@Override
+		public void mouseClicked(MouseEvent e) {
+						
+				CID = Integer.parseInt(textField.getText());
+				IDframe.setVisible(false);
+			}
+		});
+				
+		btnNewButtonID.setBounds(78, 178, 89, 23);
+		IDInput.add(btnNewButtonID);
+				
+		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textField.setBounds(43, 93, 167, 49);
+		IDInput.add(textField);
+		textField.setColumns(10);
+		//END ID input--------------------------------	
+				
+		//Start Time input--------------------------------
+		final JRadioButton rdbtnNewRadioButton = new JRadioButton("In a Week?");
+		rdbtnNewRadioButton.setBounds(86, 96, 109, 23);
+		timeInput.add(rdbtnNewRadioButton);
+			
+		final JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("In a Month?");
+		rdbtnNewRadioButton_1.setBounds(86, 122, 109, 23);
+		timeInput.add(rdbtnNewRadioButton_1);
+				
+		final JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("In a Year?");
+		rdbtnNewRadioButton_2.setBounds(86, 148, 109, 23);
+		timeInput.add(rdbtnNewRadioButton_2);
+				
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnNewRadioButton);
+		group.add(rdbtnNewRadioButton_1);
+		group.add(rdbtnNewRadioButton_2);
+				
+		Label label2 = new Label("Frequency");
+		label2.setFont(new Font("Dialog", Font.BOLD, 22));
+		label2.setAlignment(Label.CENTER);
+		label2.setBounds(10, 10, 230, 49);
+		timeInput.add(label2);
+				
+		JButton btnNewButtont = new JButton("confirm");
+		btnNewButtont.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+						
+				if (rdbtnNewRadioButton.isSelected()) { 
+							  
+					Timeoutput = 1;
+		        } 
+						
+				if (rdbtnNewRadioButton_1.isSelected()) { 
+							  
+					Timeoutput = 2;
+		        } 
+						
+				if (rdbtnNewRadioButton_2.isSelected()) { 
+							  
+					Timeoutput = 3;
+		        } 
+						
+				DTframe.setVisible(false);
+			}
+					
+		});
+		btnNewButtont.setBounds(78, 178, 89, 23);
+		timeInput.add(btnNewButtont);
+				
+		//end of time input--------------------
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
@@ -63,8 +168,12 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view cc status");
 				//Add view CC status function here
-				int ID = 0;
-				CBO.viewCardStatus(ID);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + CID);
+				CBO.viewCardStatus(UID, CID);
 				
 			}
 		});
@@ -87,8 +196,12 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view loan status");
 				//Add view loan status function here
-				int id = 0;
-				LBO.viewLoanStatus(id);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + CID);
+				LBO.viewLoanStatus(CID);
 			}
 		});
 		btnViewLoanStatus.addActionListener(new ActionListener() {
@@ -105,7 +218,7 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view cc statement");
 				//view CC statement function
-				CBO.viewCCStatement(UID);
+				CBO.viewCCStatement(UID, CID);
 				
 			}
 		});
@@ -119,7 +232,12 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view cc pattern");
 				//view CC patern function
-				CBO.viewCCPattern(UID);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + CID);
+				CBO.viewCCPattern(UID, CID);
 				
 				
 			}
@@ -134,7 +252,12 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view cc history");
 				//view CC history function
-				CBO.viewPaymentHistory(UID);
+				setinputType("Customer");
+				IDframe.getContentPane().add(IDInput);
+				IDframe.pack();
+				IDframe.setVisible(true);
+				System.out.println("result from box was: " + CID);
+				CBO.viewPaymentHistory(CID);
 				
 			}
 		});
@@ -148,8 +271,11 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: expireing card?");
 				//view CC expireing function
-				int time = 0;
-				CBO.Expireing(UID, time);
+				DTframe.getContentPane().add(timeInput);
+				DTframe.pack();
+				DTframe.setVisible(true);
+				System.out.println("result from box was: " + Timeoutput);
+				CBO.Expireing(UID, Timeoutput);
 				
 			}
 		});

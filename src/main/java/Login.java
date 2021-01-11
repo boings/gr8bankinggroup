@@ -41,15 +41,16 @@ public class Login extends JFrame {
 		});
 	}
 	
-	public void hide()
-	{
-		//this.setVisible(false);
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
+	
 	public Login() {
+		
+		final JFrame thisFrame = this;	
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 750);
 		contentPane = new JPanel();
@@ -95,7 +96,7 @@ public class Login extends JFrame {
 					ClassLoader classLoader = getClass().getClassLoader();
 					File file = new File(classLoader.getResource("personel.txt").getFile());
 			    	Scanner sc = new Scanner(file);
-			    	// Scanner sc = new Scanner(new File("src/main/resources/personel.txt"));//this is exact address of my test login info. i was having trouble with relative locations
+			    	//Scanner sc = new Scanner(new File("C://Users//joshu//Desktop//IDEs//source code//Java//Gr8Banking capstone//src//main//resources//personel.txt"));//this is exact address of my test login info. i was having trouble with relative locations
 
 			        while (sc.hasNextLine()) {
 			        	
@@ -124,7 +125,7 @@ public class Login extends JFrame {
 			                					ManagerUI Mframe = new ManagerUI(name, Integer.parseInt(UserID));
 			                					
 			                					Mframe.setVisible(true);
-			                					setVisible(false);
+			                					thisFrame.setVisible(false);
 			                				} catch (Exception e) {
 			                					e.printStackTrace();
 			                					break;
@@ -141,6 +142,7 @@ public class Login extends JFrame {
 			                					CustomerUI Cframe = new CustomerUI(name, Integer.parseInt(UserID));
 			                					hide();
 			                					Cframe.setVisible(true);
+			                					thisFrame.setVisible(false);
 			                					
 			                				} catch (Exception e) {
 			                					e.printStackTrace();
@@ -159,6 +161,8 @@ public class Login extends JFrame {
 			                					LoanUI Lframe = new LoanUI(name, Integer.parseInt(UserID));
 			                					hide();
 			                					Lframe.setVisible(true);
+			                					thisFrame.setVisible(false);
+			                					
 			                				} catch (Exception e) {
 			                					e.printStackTrace();
 			                					break;
@@ -175,6 +179,8 @@ public class Login extends JFrame {
 			                					CreditUI CRframe = new CreditUI(name, Integer.parseInt(UserID));
 			                					hide();
 			                					CRframe.setVisible(true);
+			                					thisFrame.setVisible(false);
+			                					
 			                				} catch (Exception e) {
 			                					e.printStackTrace();
 			                					break;
@@ -209,5 +215,6 @@ public class Login extends JFrame {
 		contentPane.add(button);
 	
 	}
+	
 	
 }

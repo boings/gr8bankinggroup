@@ -60,22 +60,22 @@ public class CustomerBO {
 		
 	}
 
-	public void CustomerLoanClassification() {
+	public void CustomerLoanClassification(Integer LID) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void viewCardStatus(int iD) {
+	public void viewCardStatus(int iD, Integer CID) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void viewCCStatement(Integer uID) {
+	public void viewCCStatement(Integer uID, Integer CID) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void viewCCPattern(Integer uID) {
+	public void viewCCPattern(Integer uID, Integer CID) {
 		// TODO Auto-generated method stub
 		
 	}

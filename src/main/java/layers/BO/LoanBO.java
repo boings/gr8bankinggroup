@@ -51,7 +51,7 @@ public class LoanBO {
 		
 	}
 
-	public void loanStatus(int type, int iD) {
+	public void loanStatus(int iD) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -61,7 +61,7 @@ public class LoanBO {
 		
 	}
 
-	public void loansRejected(int type, int iD) {
+	public void loansRejected(int iD) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -71,7 +71,7 @@ public class CreditCardBO {
 		
 	}
 
-	public void viewStatement(int type, int iD) {
+	public void viewStatement(int iD) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -86,7 +86,7 @@ public class CreditCardBO {
 		
 	}
 
-	public void paymentHistory(int iD, int type) {
+	public void paymentHistory(int iD) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -96,7 +96,7 @@ public class CreditCardBO {
 		
 	}
 
-	public void Expiring(int iD, int time) {
+	public void Expiring(int iD) {
 		// TODO Auto-generated method stub
 		
 	}
