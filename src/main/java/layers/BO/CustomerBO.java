@@ -44,4 +44,54 @@ public class CustomerBO {
 			e.printStackTrace();
 		}	
 	}
+
+	public void loanCustomerDemographics() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void CustomerCCClasification(int iD) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void CustomerCCDemographics() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void CustomerLoanClassification() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void viewCardStatus(int iD) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void viewCCStatement(Integer uID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void viewCCPattern(Integer uID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void viewPaymentHistory(Integer uID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void Expireing(Integer uID, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void viewMyInfo(Integer uID) {
+		// TODO Auto-generated method stub
+		
+	}
 }

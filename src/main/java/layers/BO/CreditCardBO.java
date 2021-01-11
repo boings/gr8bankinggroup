@@ -50,4 +50,70 @@ public class CreditCardBO {
 			e.printStackTrace();
 		}	
 	}
+
+	public void numberOfCardRequests(int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void statusOfCards(int customerID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void numberOfCCForCust(int customerID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void numberOfCCRejected(int type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void viewStatement(int type, int iD) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void useagePatternForCustID(int iD) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void limitsForCust(int iD) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void paymentHistory(int iD, int type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void AvgTimeToDecide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void Expiring(int iD, int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void RegionalUseage(int type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void RegionalSale(int type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void DiscontinuedCards(int iD) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -45,4 +45,45 @@ public class LoanBO {
 			e.printStackTrace();
 		}	
 	}
+
+	public void newLoanRequests(int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void loanStatus(int type, int iD) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void numberOfLoans(int type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void loansRejected(int type, int iD) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void avgDecideTime(int time) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void summary(int type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void defaults() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void viewLoanStatus(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

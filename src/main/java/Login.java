@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import layers.UI.*;
+import layers.BO.*;
 import java.awt.Label;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -94,7 +95,7 @@ public class Login extends JFrame {
 					ClassLoader classLoader = getClass().getClassLoader();
 					File file = new File(classLoader.getResource("personel.txt").getFile());
 			    	Scanner sc = new Scanner(file);
-			    	//Scanner sc = new Scanner(new File("C://Users//joshu//Desktop//IDEs//source code//Java//Gr8Banking capstone//src//main//resources//personel.txt"));//this is exact address of my test login info. i was having trouble with relative locations
+			    	// Scanner sc = new Scanner(new File("src/main/resources/personel.txt"));//this is exact address of my test login info. i was having trouble with relative locations
 
 			        while (sc.hasNextLine()) {
 			        	
@@ -123,6 +124,7 @@ public class Login extends JFrame {
 			                					ManagerUI Mframe = new ManagerUI(name, Integer.parseInt(UserID));
 			                					
 			                					Mframe.setVisible(true);
+			                					setVisible(false);
 			                				} catch (Exception e) {
 			                					e.printStackTrace();
 			                					break;

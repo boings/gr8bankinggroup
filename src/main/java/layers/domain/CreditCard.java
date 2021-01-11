@@ -51,4 +51,102 @@ public class CreditCard {
 	@Column(name="payment_history")
 	private String creditPaymentHistory;
 
+
+
+	public Integer getCreditCardNumber() {
+		return this.creditCardNumber;
+	}
+
+	public void setCreditCardNumber(Integer creditCardNumber) {
+		this.creditCardNumber = creditCardNumber;
+	}
+
+	public Integer getCustomerID() {
+		return this.customerID;
+	}
+
+	public void setCustomerID(Integer customerID) {
+		this.customerID = customerID;
+	}
+
+	public Integer getIssuerID() {
+		return this.issuerID;
+	}
+
+	public void setIssuerID(Integer issuerID) {
+		this.issuerID = issuerID;
+	}
+
+	public Double getCreditCardLimit() {
+		return this.creditCardLimit;
+	}
+
+	public void setCreditCardLimit(Double creditCardLimit) {
+		this.creditCardLimit = creditCardLimit;
+	}
+
+	public Date getDateRequested() {
+		return this.dateRequested;
+	}
+
+	public void setDateRequested(Date dateRequested) {
+		this.dateRequested = dateRequested;
+	}
+
+	public Date getDateAnswered() {
+		return this.dateAnswered;
+	}
+
+	public void setDateAnswered(Date dateAnswered) {
+		this.dateAnswered = dateAnswered;
+	}
+
+	public Date getExpiration() {
+		return this.expiration;
+	}
+
+	public void setExpiration(Date expiration) {
+		this.expiration = expiration;
+	}
+
+	public String getRegion() {
+		return this.region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getType() {
+		return this.type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getStatements() {
+		return this.statements;
+	}
+
+	public void setStatements(String statements) {
+		this.statements = statements;
+	}
+
+	public String getCreditPaymentHistory() {
+		return this.creditPaymentHistory;
+	}
+
+	public void setCreditPaymentHistory(String creditPaymentHistory) {
+		this.creditPaymentHistory = creditPaymentHistory;
+	}
+
 }

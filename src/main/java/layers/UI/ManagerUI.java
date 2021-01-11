@@ -1,32 +1,109 @@
 package layers.UI;
 
 import java.awt.BorderLayout;
+import java.lang.Thread;
 
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-//import layers.BO.*;
+import layers.BO.*;
 
 import java.awt.Label;
-import javax.swing.JButton;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ManagerUI extends JFrame {
 
-	private JPanel contentPane;
+	 private JPanel contentPane;
+	 private JPanel timeInput;
+	 private Integer Timeoutput;	
+	 
+	 
+	 
 
 	/**
 	 * Create the frame.
 	 */
 	public ManagerUI(String name, Integer userID) {
+		
+		final CustomerBO CBO = new CustomerBO();
+		final LoanBO LBO = new LoanBO();
+		final CreditCardBO CCBO = new CreditCardBO();
+		final PurchaseBO PBO = new PurchaseBO();
+		final AccountBO ABO = new AccountBO();
+		
+		final JFrame thisFrame = this;	
+		final JDialog DTframe = new JDialog(thisFrame, "Time input", true);
+		
+		timeInput = new JPanel();
+		timeInput.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				System.out.println("closing box");
+			}
+		});
+		timeInput.setSize(1000, 1000);
+		
+		final JRadioButton rdbtnNewRadioButton = new JRadioButton("per Week");
+	 	rdbtnNewRadioButton.setBounds(86, 96, 109, 23);
+		timeInput.add(rdbtnNewRadioButton);
+		
+		final JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("per Month");
+		rdbtnNewRadioButton_1.setBounds(86, 122, 109, 23);
+		timeInput.add(rdbtnNewRadioButton_1);
+		
+		final JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Per year");
+		rdbtnNewRadioButton_2.setBounds(86, 148, 109, 23);
+		timeInput.add(rdbtnNewRadioButton_2);
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnNewRadioButton);
+		group.add(rdbtnNewRadioButton_1);
+		group.add(rdbtnNewRadioButton_2);
+		
+		Label label2 = new Label("Frequency");
+		label2.setFont(new Font("Dialog", Font.BOLD, 22));
+		label2.setAlignment(Label.CENTER);
+		label2.setBounds(10, 10, 230, 49);
+		timeInput.add(label2);
+		
+		JButton btnNewButtont = new JButton("confirm");
+		btnNewButtont.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if (rdbtnNewRadioButton.isSelected()) { 
+					  
+					Timeoutput = 1;
+                } 
+				
+				if (rdbtnNewRadioButton_1.isSelected()) { 
+					  
+					Timeoutput = 2;
+                } 
+				
+				if (rdbtnNewRadioButton_2.isSelected()) { 
+					  
+					Timeoutput = 3;
+                } 
+				
+				DTframe.setVisible(false);
+			}
+			
+		});
+		btnNewButtont.setBounds(78, 178, 89, 23);
+		timeInput.add(btnNewButtont);
+		
+		
+		//end of time input--------------------
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
 		contentPane = new JPanel();
@@ -56,21 +133,30 @@ public class ManagerUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				System.out.println("Executing function: number of CC requests");
+				
 				//function for number of CC requests
 				
+				DTframe.getContentPane().add(timeInput);
+				DTframe.pack();
+				DTframe.setVisible(true);
+				System.out.println("result from box was: " + Timeoutput);
+				
+				CCBO.numberOfCardRequests(Timeoutput);
+			
 			}
 		});
 		btnNewButton.setBounds(44, 162, 143, 44);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton2 = new JButton("view status of cust");
+		JButton btnNewButton2 = new JButton("view card status of cust");
 		btnNewButton2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				System.out.println("Executing function: Status of Customers");
-				//function for ststus of customers
-				
+				System.out.println("Executing function: Card status of Customers");
+				//function for status of customers
+				int customerID = 0;
+				CCBO.statusOfCards(customerID);
 			}
 		});
 		btnNewButton2.setBounds(44, 217, 143, 44);
@@ -83,6 +169,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: number of CC aproved");
 				//function for number of CC aproved
+				int customerID = 0;
+				CCBO.numberOfCCForCust(customerID);
 				
 			}
 		});
@@ -96,7 +184,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: number of CC rejected");
 				//function for number of CC rejected
-				
+				int type = 0;
+				CCBO.numberOfCCRejected(type);
 			}
 		});
 		btnNewButton4.setBounds(44, 327, 143, 44);
@@ -109,7 +198,9 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: View statments");
 				//function for statements of customers
-				
+				int ID = 0;
+				int type = 0;
+				CCBO.viewStatement(type, ID);
 				
 			}
 		});
@@ -124,7 +215,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: useage pattern of Customers");
 				//function for patterns of customers
-				
+				int ID = 0;
+				CCBO.useagePatternForCustID(ID);
 				
 			}
 		});
@@ -139,7 +231,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Limits of Customers");
 				//function for limits of customers
-				
+				int ID = 0;
+				CCBO.limitsForCust(ID);
 				
 			}
 		});
@@ -154,7 +247,9 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: History of Customers");
 				//function for history of customers
-				
+				int type = 0;
+				int ID = 0;
+				CCBO.paymentHistory(ID, type);
 				
 			}
 		});
@@ -169,7 +264,7 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Time to approve");
 				//function for time to aprove for customers
-				
+				CCBO.AvgTimeToDecide();
 				
 			}
 		});
@@ -184,7 +279,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Classification of Customers");
 				//function for class of customers
-				
+				int ID = 0;
+				CBO.CustomerCCClasification(ID);
 				
 			}
 		});
@@ -199,7 +295,9 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Expiring?");
 				//function for expiring?
-				
+				int time = 0;
+				int ID = 0;
+				CCBO.Expiring(ID, time);
 				
 			}
 		});
@@ -212,16 +310,14 @@ public class ManagerUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				
-				System.out.println("Executing function: Regional use");
+				System.out.println("Executing function: Regional/profession use");
 				//function for regional use for customers
-				
+				int type = 0;
+				CCBO.RegionalUseage(type);
 				
 			}
 		});
-		btnNewButton12.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		
 		btnNewButton12.setBounds(225, 272, 143, 44);
 		contentPane.add(btnNewButton12);
 		
@@ -231,9 +327,10 @@ public class ManagerUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				
-				System.out.println("Executing function: Regional sale of cards");
+				System.out.println("Executing function: Regional/profession sale of cards");
 				//function for sale of cards
-				
+				int type = 0;
+				CCBO.RegionalSale(type);
 				
 				
 			}
@@ -249,7 +346,7 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Customer Demographics ");
 				//function for customers demo
-				
+				CBO.CustomerCCDemographics();
 				
 			}
 		});
@@ -264,7 +361,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Discontinues");
 				//function for Discontinues
-				
+				int ID = 0;
+				CCBO.DiscontinuedCards(ID);
 				
 			}
 		});
@@ -283,6 +381,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Loan Requests");
 				//function for loan requests
+				int time = 0;
+				LBO.newLoanRequests(time);
 				
 			}
 		});
@@ -296,14 +396,16 @@ public class ManagerUI extends JFrame {
 				
 				
 				System.out.println("Executing function: Loan Status");
-				//function for loan Status
+				int type = 0;
+				int ID = 0;
+				LBO.loanStatus(type, ID);
 				
 			}
 		});
 		btnStatusOfLoans.setBounds(787, 217, 143, 44);
 		contentPane.add(btnStatusOfLoans);
 		
-		JButton btnNoOfLoans = new JButton("no of loans by profession");
+		JButton btnNoOfLoans = new JButton("no of loans by profession/regon");
 		btnNoOfLoans.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -311,6 +413,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Loan By Profession");
 				//function for loan by profession
+				int type = 0;
+				LBO.numberOfLoans(type);
 				
 			}
 		});
@@ -325,6 +429,10 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Loans Rejected");
 				//function for loan rejected
+				int type = 0;
+				int ID = 0;
+				LBO.loansRejected(type, ID);
+				
 				
 			}
 		});
@@ -339,6 +447,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Avg time to decide");
 				//function for descition time
+				int time = 0;
+				LBO.avgDecideTime(time);
 				
 			}
 		});
@@ -353,6 +463,8 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: customer classification");
 				//function for customer classification
+				int ID = 0;
+				CBO.CustomerLoanClassification();
 				
 			}
 		});
@@ -365,8 +477,10 @@ public class ManagerUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				
-				System.out.println("Executing function: loan summary by reigon");
+				System.out.println("Executing function: loan summary by reigon/profession");
 				//function for loan summary by reigon
+				int type = 0;
+				LBO.summary(type);
 				
 			}
 		});
@@ -381,7 +495,7 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Customer demo");
 				//function for loan summary by customer demo
-				
+				CBO.loanCustomerDemographics();
 			}
 		});
 		btnNoOfLoans6.setBounds(787, 547, 143, 44);
@@ -395,6 +509,7 @@ public class ManagerUI extends JFrame {
 				
 				System.out.println("Executing function: Defaults");
 				//function for loan summary by defaults
+				LBO.defaults();
 				
 			}
 		});
@@ -402,8 +517,8 @@ public class ManagerUI extends JFrame {
 		contentPane.add(btnDefaults);
 		
 		
+		
+		
 	}
-
-	public ManagerUI() {
-	}
+	
 }

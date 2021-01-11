@@ -12,6 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import layers.BO.AccountBO;
+import layers.BO.CreditCardBO;
+import layers.BO.CustomerBO;
+import layers.BO.LoanBO;
+import layers.BO.PurchaseBO;
+
 public class LoanUI extends JFrame {
 
 	private JPanel contentPane;
@@ -21,6 +27,13 @@ public class LoanUI extends JFrame {
 	 * Create the frame.
 	 */
 	public LoanUI(String name, Integer userID) {
+		
+		final CustomerBO CBO = new CustomerBO();
+		final LoanBO LBO = new LoanBO();
+		final CreditCardBO CCBO = new CreditCardBO();
+		final PurchaseBO PBO = new PurchaseBO();
+		final AccountBO ABO = new AccountBO();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
 		contentPane = new JPanel();
@@ -48,6 +61,8 @@ public class LoanUI extends JFrame {
 				
 				System.out.println("Executing function: Loan Requests");
 				//function for loan requests
+				int time = 0;
+				LBO.newLoanRequests(time);
 				
 			}
 		});
@@ -61,14 +76,16 @@ public class LoanUI extends JFrame {
 				
 				
 				System.out.println("Executing function: Loan Status");
-				//function for loan Status
+				int type = 0;
+				int ID = 0;
+				LBO.loanStatus(type, ID);
 				
 			}
 		});
 		btnStatusOfLoans.setBounds(787, 217, 143, 44);
 		contentPane.add(btnStatusOfLoans);
 		
-		JButton btnNoOfLoans = new JButton("no of loans by profession");
+		JButton btnNoOfLoans = new JButton("no of loans by profession/regon");
 		btnNoOfLoans.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -76,6 +93,8 @@ public class LoanUI extends JFrame {
 				
 				System.out.println("Executing function: Loan By Profession");
 				//function for loan by profession
+				int type = 0;
+				LBO.numberOfLoans(type);
 				
 			}
 		});
@@ -90,6 +109,10 @@ public class LoanUI extends JFrame {
 				
 				System.out.println("Executing function: Loans Rejected");
 				//function for loan rejected
+				int type = 0;
+				int ID = 0;
+				LBO.loansRejected(type, ID);
+				
 				
 			}
 		});
@@ -104,6 +127,8 @@ public class LoanUI extends JFrame {
 				
 				System.out.println("Executing function: Avg time to decide");
 				//function for descition time
+				int time = 0;
+				LBO.avgDecideTime(time);
 				
 			}
 		});
@@ -118,6 +143,8 @@ public class LoanUI extends JFrame {
 				
 				System.out.println("Executing function: customer classification");
 				//function for customer classification
+				int ID = 0;
+				CBO.CustomerLoanClassification();
 				
 			}
 		});
@@ -130,8 +157,10 @@ public class LoanUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				
-				System.out.println("Executing function: loan summary by reigon");
+				System.out.println("Executing function: loan summary by reigon/profession");
 				//function for loan summary by reigon
+				int type = 0;
+				LBO.summary(type);
 				
 			}
 		});
@@ -146,7 +175,7 @@ public class LoanUI extends JFrame {
 				
 				System.out.println("Executing function: Customer demo");
 				//function for loan summary by customer demo
-				
+				CBO.loanCustomerDemographics();
 			}
 		});
 		btnNoOfLoans6.setBounds(787, 547, 143, 44);
@@ -160,6 +189,7 @@ public class LoanUI extends JFrame {
 				
 				System.out.println("Executing function: Defaults");
 				//function for loan summary by defaults
+				LBO.defaults();
 				
 			}
 		});

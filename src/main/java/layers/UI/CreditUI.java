@@ -1,4 +1,5 @@
 package layers.UI;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Label;
@@ -11,6 +12,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import layers.BO.AccountBO;
+import layers.BO.CreditCardBO;
+import layers.BO.CustomerBO;
+import layers.BO.LoanBO;
+import layers.BO.PurchaseBO;
+
 import java.awt.Font;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -25,6 +33,14 @@ public class CreditUI extends JFrame {
 	 * Create the frame.
 	 */
 	public CreditUI(String name, Integer userID) {
+		final CustomerBO CBO = new CustomerBO();
+		final LoanBO LBO = new LoanBO();
+		final CreditCardBO CCBO = new CreditCardBO();
+		final PurchaseBO PBO = new PurchaseBO();
+		final AccountBO ABO = new AccountBO();
+		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
 		contentPane = new JPanel();
@@ -55,20 +71,25 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: number of CC requests");
 				//function for number of CC requests
+				int time = 0;
+				CCBO.numberOfCardRequests(time);
+				
+				
 				
 			}
 		});
 		btnNewButton.setBounds(44, 162, 143, 44);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton2 = new JButton("view status of cust");
+		JButton btnNewButton2 = new JButton("view card status of cust");
 		btnNewButton2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				System.out.println("Executing function: Status of Customers");
-				//function for ststus of customers
-				
+				System.out.println("Executing function: Card status of Customers");
+				//function for status of customers
+				int customerID = 0;
+				CCBO.statusOfCards(customerID);
 			}
 		});
 		btnNewButton2.setBounds(44, 217, 143, 44);
@@ -81,6 +102,8 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: number of CC aproved");
 				//function for number of CC aproved
+				int customerID = 0;
+				CCBO.numberOfCCForCust(customerID);
 				
 			}
 		});
@@ -94,7 +117,8 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: number of CC rejected");
 				//function for number of CC rejected
-				
+				int type = 0;
+				CCBO.numberOfCCRejected(type);
 			}
 		});
 		btnNewButton4.setBounds(44, 327, 143, 44);
@@ -107,7 +131,9 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: View statments");
 				//function for statements of customers
-				
+				int ID = 0;
+				int type = 0;
+				CCBO.viewStatement(type, ID);
 				
 			}
 		});
@@ -122,7 +148,8 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: useage pattern of Customers");
 				//function for patterns of customers
-				
+				int ID = 0;
+				CCBO.useagePatternForCustID(ID);
 				
 			}
 		});
@@ -137,7 +164,8 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: Limits of Customers");
 				//function for limits of customers
-				
+				int ID = 0;
+				CCBO.limitsForCust(ID);
 				
 			}
 		});
@@ -152,7 +180,9 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: History of Customers");
 				//function for history of customers
-				
+				int type = 0;
+				int ID = 0;
+				CCBO.paymentHistory(ID, type);
 				
 			}
 		});
@@ -167,7 +197,7 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: Time to approve");
 				//function for time to aprove for customers
-				
+				CCBO.AvgTimeToDecide();
 				
 			}
 		});
@@ -182,7 +212,8 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: Classification of Customers");
 				//function for class of customers
-				
+				int ID = 0;
+				CBO.CustomerCCClasification(ID);
 				
 			}
 		});
@@ -197,7 +228,9 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: Expiring?");
 				//function for expiring?
-				
+				int time = 0;
+				int ID = 0;
+				CCBO.Expiring(ID, time);
 				
 			}
 		});
@@ -210,16 +243,14 @@ public class CreditUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				
-				System.out.println("Executing function: Regional use");
+				System.out.println("Executing function: Regional/profession use");
 				//function for regional use for customers
-				
+				int type = 0;
+				CCBO.RegionalUseage(type);
 				
 			}
 		});
-		btnNewButton12.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		
 		btnNewButton12.setBounds(225, 272, 143, 44);
 		contentPane.add(btnNewButton12);
 		
@@ -229,9 +260,10 @@ public class CreditUI extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				
-				System.out.println("Executing function: Regional sale of cards");
+				System.out.println("Executing function: Regional/profession sale of cards");
 				//function for sale of cards
-				
+				int type = 0;
+				CCBO.RegionalSale(type);
 				
 				
 			}
@@ -247,7 +279,7 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: Customer Demographics ");
 				//function for customers demo
-				
+				CBO.CustomerCCDemographics();
 				
 			}
 		});
@@ -262,13 +294,10 @@ public class CreditUI extends JFrame {
 				
 				System.out.println("Executing function: Discontinues");
 				//function for Discontinues
-				
+				int ID = 0;
+				CCBO.DiscontinuedCards(ID);
 				
 			}
 		});
-		btnNewButton15.setLocation(225, 492);
-		btnNewButton15.setSize(143, 44);
-		btnNewButton15.setBounds(225, 437, 143, 44);
-		contentPane.add(btnNewButton15);
 	}
 }

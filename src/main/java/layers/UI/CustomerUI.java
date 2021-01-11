@@ -7,6 +7,13 @@ import java.awt.Label;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import layers.BO.AccountBO;
+import layers.BO.CreditCardBO;
+import layers.BO.CustomerBO;
+import layers.BO.LoanBO;
+import layers.BO.PurchaseBO;
+
 import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -25,6 +32,16 @@ public class CustomerUI extends JFrame {
 	 * Create the frame.
 	 */
 	public CustomerUI(String name, Integer userID) {
+		
+		final Integer UID = userID;
+		final String usersName = name;
+		
+		final CustomerBO CBO = new CustomerBO();
+		final LoanBO LBO = new LoanBO();
+		final CreditCardBO CCBO = new CreditCardBO();
+		final PurchaseBO PBO = new PurchaseBO();
+		final AccountBO ABO = new AccountBO();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
 		contentPane = new JPanel();
@@ -46,6 +63,8 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view cc status");
 				//Add view CC status function here
+				int ID = 0;
+				CBO.viewCardStatus(ID);
 				
 			}
 		});
@@ -68,6 +87,8 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view loan status");
 				//Add view loan status function here
+				int id = 0;
+				LBO.viewLoanStatus(id);
 			}
 		});
 		btnViewLoanStatus.addActionListener(new ActionListener() {
@@ -84,6 +105,7 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view cc statement");
 				//view CC statement function
+				CBO.viewCCStatement(UID);
 				
 			}
 		});
@@ -97,6 +119,8 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view cc pattern");
 				//view CC patern function
+				CBO.viewCCPattern(UID);
+				
 				
 			}
 		});
@@ -110,6 +134,7 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view cc history");
 				//view CC history function
+				CBO.viewPaymentHistory(UID);
 				
 			}
 		});
@@ -123,6 +148,8 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: expireing card?");
 				//view CC expireing function
+				int time = 0;
+				CBO.Expireing(UID, time);
 				
 			}
 		});
@@ -140,6 +167,7 @@ public class CustomerUI extends JFrame {
 				
 				System.out.println("Executing function: view info");
 				//view personal info function
+				CBO.viewMyInfo(UID);
 				
 			}
 		});
